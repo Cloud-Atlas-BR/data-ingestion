@@ -28,7 +28,7 @@ jobs:
             --region us-east-1 \
             --body function.zip \
           aws cloudformation deploy \
-            --stack-name cloud-atlas-glue-database-camara \
+            --stack-name cloud-atlas-lambda-data-ingestion \
             --template-file template.yaml \
             --parameter-overrides file://parameters.json
             
