@@ -1,0 +1,13 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  DATA_INICIO:
+    Type: String
+  DATA_FIM:
+    Type: String
+  BUCKET:
+    Type: String
+  ITENS_PAGINA:
+    Type: String
+    
+    

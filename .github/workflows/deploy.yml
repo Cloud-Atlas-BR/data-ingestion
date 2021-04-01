@@ -18,7 +18,17 @@ jobs:
 
       - name: Create Data Ingestion Lambda Function
         run: | 
+          zip lambda_function.py function.zip \
+          aws s3api create-bucket \
+            --bucket data-ingestion-source \
+            --region us-east-1 \          
+          aws s3api put-object \
+            --bucket data-ingestion-source \
+            --key function.zip \
+            --region us-east-1 \
+            --body function.zip \
           aws cloudformation deploy \
             --stack-name cloud-atlas-glue-database-camara \
             --template-file template.yaml \
             --parameter-overrides file://parameters.json
+            
