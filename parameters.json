@@ -3,7 +3,7 @@
         "DATA_INICIO": "2021-29-03",
         "DATA_FIM": "2021-29-03",
         "BUCKET": "cloudatlas-datalake",
-        "ITENS_PAGINA": "1"
-
+        "ITENS_PAGINA": "1",
+        "LambdaBucket": "data-ingestion-source"
     }
 }
