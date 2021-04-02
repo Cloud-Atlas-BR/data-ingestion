@@ -5,9 +5,35 @@ Parameters:
     Type: String
   DATA_FIM:
     Type: String
-  BUCKET:
+  BUCKET_INGESTAO:
     Type: String
   ITENS_PAGINA:
     Type: String
-    
+  LambdaBucket:
+    Type: String
+
+Resources:
+  Function:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: dataingestion
+      Handler: index.handler
+      Role: arn:aws:iam::885248014373:role/service-role/DataIn-role-f0nn8cop
+      Code:
+        S3Bucket: !Ref LambdaBucket
+        S3Key: function.zip
+      Runtime: python3.7
+      Timeout: 10
+      Environment:
+        Variables:
+          DATA_INICIO: !Ref DATA_INICIO
+          DATA_FIM: !Ref DATA_FIM
+          BUCKET_INGESTAO: !Ref BUCKET_INGESTAO
+          ITENS_PAGINA: !Ref ITENS_PAGINA
+
+
+  
+      
+  
+   
     
