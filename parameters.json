@@ -1,9 +1,9 @@
 {
     "Parameters": {
-        "DATA_INICIO": "2021-29-03",
-        "DATA_FIM": "2021-29-03",
-        "BUCKET": "cloudatlas-datalake",
-        "ITENS_PAGINA": "1",
-        "LambdaBucket": "data-ingestion-source"
+       "DATAINICIO":"2021-29-03",
+       "DATAFIM":"2021-29-03",
+       "BUCKET":"cloudatlas-datalake",
+       "ITENSPAGINA":"1",
+       "LambdaBucket":"data-ingestion-source"
     }
 }

@@ -1,13 +1,13 @@
 ---
 AWSTemplateFormatVersion: '2010-09-09'
 Parameters:
-  DATA_INICIO:
+  DATAINICIO:
     Type: String
-  DATA_FIM:
+  DATAFIM:
     Type: String
-  BUCKET_INGESTAO:
+  BUCKETINGESTAO:
     Type: String
-  ITENS_PAGINA:
+  ITENSPAGINA:
     Type: String
   LambdaBucket:
     Type: String
@@ -26,10 +26,10 @@ Resources:
       Timeout: 10
       Environment:
         Variables:
-          DATA_INICIO: !Ref DATA_INICIO
-          DATA_FIM: !Ref DATA_FIM
-          BUCKET_INGESTAO: !Ref BUCKET_INGESTAO
-          ITENS_PAGINA: !Ref ITENS_PAGINA
+          DATA_INICIO: !Ref DATAINICIO
+          DATA_FIM: !Ref DATAFIM
+          BUCKET_INGESTAO: !Ref BUCKETINGESTAO
+          ITENS_PAGINA: !Ref ITENSPAGINA
 
 
   
