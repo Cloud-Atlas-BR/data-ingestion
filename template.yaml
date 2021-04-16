@@ -1,4 +1,3 @@
----
 AWSTemplateFormatVersion: '2010-09-09'
 Parameters:
   DATAINICIO:
@@ -11,7 +10,6 @@ Parameters:
     Type: String
   LambdaBucket:
     Type: String
-
 Resources:
   Function:
     Type: AWS::Lambda::Function
@@ -30,6 +28,24 @@ Resources:
           DATA_FIM: !Ref DATAFIM
           BUCKET_INGESTAO: !Ref BUCKETINGESTAO
           ITENS_PAGINA: !Ref ITENSPAGINA
+  Scheduler:
+    Type: AWS::Events::Rule
+    Properties: 
+      EventBusName: default
+      Name: Hardin-Data-Ingestion-Scheduler
+      ScheduleExpression: "rate(1 day)"
+      State: ENABLED
+      Targets: 
+        - 
+          Arn: !GetAtt Function.Arn
+          Id: Hardin-Data-Ingestion-Target
+  SchedulerInvokePermission: 
+    Type: AWS::Lambda::Permission
+    Properties: 
+      FunctionName: !Ref Function
+      Action: "lambda:InvokeFunction"
+      Principal: "events.amazonaws.com"
+      SourceArn: !GetAtt Scheduler.Arn
 
 
   
