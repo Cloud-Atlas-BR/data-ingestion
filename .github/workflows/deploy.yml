@@ -44,5 +44,5 @@ jobs:
 
       - name: Update Function Code
         run: |
-          aws lambda update-function-code --zip-file file://function.zip
+          aws lambda update-function-code --function-name dataingestion --zip-file file://function.zip
             
