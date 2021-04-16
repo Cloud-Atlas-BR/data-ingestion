@@ -33,13 +33,13 @@ def GetPages(date):
         next_page_url = json_props['links'][1]['href']
         
         #Gerando Arquivos e Escrevendo no bucket
-        GenerateJsonFile(first_page,last_page,response_get,json_props)
+        GenerateJsonFile(date, first_page,last_page,response_get,json_props)
 
     except Exception as e:
         print(e.__class__)
         print(e)
     
-def GenerateJsonFile(first_page,last_page,json_boject,json_props):
+def GenerateJsonFile(date, first_page,last_page,json_boject,json_props):
     try:
         for pages in range(int(first_page), int(last_page)):
             next_page_url = json_props['links'][1]['href']
@@ -50,10 +50,10 @@ def GenerateJsonFile(first_page,last_page,json_boject,json_props):
         ano = date.split(sep="-")[0]
         mes = date.split(sep="-")[1]
         dia = date.split(sep="-")[2]        
-        json_file_name = "raw/camara/proposicoes/json/{0}/{1}/{2}/{3}.json".format(ano,mes,dia,str(json_props["dados"][0]["id"]))
+        json_file_name = "raw/camara/proposicoes/{0}/{1}/{2}/{3}.json".format(ano,mes,dia,str(json_props["dados"][0]["id"]))
 
         #Escrevendo no bucket S3     
-        s3.Object(os.environ['BUCKET'], json_file_name).put(Body=(bytes(json.dumps(json_props).encode('UTF-8'))))
+        s3.Object(os.environ['BUCKET_INGESTAO'], json_file_name).put(Body=(bytes(json.dumps(json_props).encode('UTF-8'))))
     
     except Exception as e:
         print(e.__class__)
