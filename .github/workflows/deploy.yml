@@ -18,7 +18,7 @@ jobs:
 
       - name: Create Data Ingestion Lambda Function
         run: | 
-          zip lambda_function.py function.zip
+          zip function.zip lambda_function.py
           aws s3api create-bucket \
             --bucket data-ingestion-source \
             --region us-east-1 \          
