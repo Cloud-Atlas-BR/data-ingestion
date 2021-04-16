@@ -38,7 +38,7 @@ jobs:
       - name: Deploy Cloudformation
         run: |
           aws cloudformation deploy \
-            --stack-name cloud-atlas-lambda-data-ingestion \
+            --stack-name data-ingestion-lambda \
             --template-file template.yaml \
             --parameter-overrides file://parameters.json
             
