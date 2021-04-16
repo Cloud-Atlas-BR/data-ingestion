@@ -15,7 +15,7 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       FunctionName: dataingestion
-      Handler: index.handler
+      Handler: lambda_function.handler
       Role: arn:aws:iam::885248014373:role/service-role/DataIn-role-f0nn8cop
       Code:
         S3Bucket: !Ref LambdaBucket
