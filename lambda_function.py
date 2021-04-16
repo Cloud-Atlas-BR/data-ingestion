@@ -14,7 +14,7 @@ s3 = boto3.resource('s3')
 def GetPages(date):
     try:
         #Initial URL
-        response_get = requests.get(url="https://dadosabertos.camara.leg.br/api/v2/proposicoes?dataInicio={0}&dataFim={1}&itens={2}&ordem=ASC&ordenarPor=id".format(date,date,os.environ['ITENS_PAGINA']))
+        response_get = requests.get(url="https://dadosabertos.camara.leg.br/api/v2/proposicoes?dataInicio={0}&dataFim={1}&itens={2}&ordem=ASC&ordenarPor=id".format(date, date, os.environ['ITENS_PAGINA']))
     
         #Primeira chamada        
         json_props = json.loads(response_get.text)
