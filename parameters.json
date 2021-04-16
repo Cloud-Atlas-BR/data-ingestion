@@ -1,7 +1,5 @@
 {
     "Parameters": {
-       "DATAINICIO":"2021-29-03",
-       "DATAFIM":"2021-29-03",
        "BUCKETINGESTAO":"cloudatlas-datalake",
        "ITENSPAGINA":"1",
        "LambdaBucket":"data-ingestion-source"

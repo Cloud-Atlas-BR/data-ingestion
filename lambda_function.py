@@ -5,13 +5,16 @@ import urllib
 import os
 import boto3
 import sys
+from datetime import datetime, timedelta
+
 
 s3 = boto3.resource('s3')
 
-def GetPages():
+
+def GetPages(date):
     try:
         #Initial URL
-        response_get = requests.get(url="https://dadosabertos.camara.leg.br/api/v2/proposicoes?dataInicio={0}&dataFim={1}&itens={2}&ordem=ASC&ordenarPor=id".format(os.environ['DATA_INICIO'],os.environ['DATA_FIM'],os.environ['ITENS_PAGINA']))
+        response_get = requests.get(url="https://dadosabertos.camara.leg.br/api/v2/proposicoes?dataInicio={0}&dataFim={1}&itens={2}&ordem=ASC&ordenarPor=id".format(date,date,os.environ['ITENS_PAGINA']))
     
         #Primeira chamada        
         json_props = json.loads(response_get.text)
@@ -44,9 +47,9 @@ def GenerateJsonFile(first_page,last_page,json_boject,json_props):
             json_props = json.loads(response_next_get.text)
         
         #Montando nome do Arquivo
-        ano = os.environ['DATA_INICIO'].split(sep="-")[0]
-        mes = os.environ['DATA_INICIO'].split(sep="-")[1]
-        dia = os.environ['DATA_INICIO'].split(sep="-")[2]        
+        ano = date.split(sep="-")[0]
+        mes = date.split(sep="-")[1]
+        dia = date.split(sep="-")[2]        
         json_file_name = "raw/camara/proposicoes/json/{0}/{1}/{2}/{3}.json".format(ano,mes,dia,str(json_props["dados"][0]["id"]))
 
         #Escrevendo no bucket S3     
@@ -57,4 +60,5 @@ def GenerateJsonFile(first_page,last_page,json_boject,json_props):
         print(e)
 
 def lambda_handler(event, context):
-    GetPages()
+    date = (datetime.today() + timedelta(days=-1)).strftime("%Y-%m-%d")
+    GetPages(date)
