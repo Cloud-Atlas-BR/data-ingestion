@@ -41,4 +41,8 @@ jobs:
             --stack-name data-ingestion-lambda \
             --template-file template.yaml \
             --parameter-overrides file://parameters.json
+
+      - name: Update Function Code
+        run: |
+          aws lambda update-function-code --zip-file file://function.zip
             
