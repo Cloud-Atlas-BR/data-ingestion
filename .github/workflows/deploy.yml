@@ -15,18 +15,28 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+      
+      - name: Create Lambda Source Code Bucket
+        run: |
+          BUCKET_EXISTS=$(aws s3api head-bucket --bucket data-ingestion-source 2>&1 || true)
+          if [ -z "$BUCKET_EXISTS" ]; then
+            echo "Bucket exists"
+          else
+            aws s3api create-bucket --bucket data-ingestion-source --region us-east-1
+          fi
 
-      - name: Create Data Ingestion Lambda Function
-        run: | 
+      - name: Zip and Send Source Code to S3
+        run: |
           zip function.zip lambda_function.py
-          aws s3api create-bucket \
-            --bucket data-ingestion-source \
-            --region us-east-1 \          
+          
           aws s3api put-object \
             --bucket data-ingestion-source \
             --key function.zip \
             --region us-east-1 \
-            --body function.zip \
+            --body function.zip
+
+      - name: Deploy Cloudformation
+        run: |
           aws cloudformation deploy \
             --stack-name cloud-atlas-lambda-data-ingestion \
             --template-file template.yaml \
