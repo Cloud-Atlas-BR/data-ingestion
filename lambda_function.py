@@ -46,14 +46,14 @@ def GenerateJsonFile(date, first_page,last_page,json_boject,json_props):
             response_next_get = requests.get(url=next_page_url)
             json_props = json.loads(response_next_get.text)
         
-        #Montando nome do Arquivo
-        ano = date.split(sep="-")[0]
-        mes = date.split(sep="-")[1]
-        dia = date.split(sep="-")[2]        
-        json_file_name = "raw/camara/proposicoes/{0}/{1}/{2}/{3}.json".format(ano,mes,dia,str(json_props["dados"][0]["id"]))
+            #Montando nome do Arquivo
+            ano = date.split(sep="-")[0]
+            mes = date.split(sep="-")[1]
+            dia = date.split(sep="-")[2]        
+            json_file_name = "raw/camara/proposicoes/{0}/{1}/{2}/{3}.json".format(ano,mes,dia,str(json_props["dados"][0]["id"]))
 
-        #Escrevendo no bucket S3     
-        s3.Object(os.environ['BUCKET_INGESTAO'], json_file_name).put(Body=(bytes(json.dumps(json_props).encode('UTF-8'))))
+            #Escrevendo no bucket S3     
+            s3.Object(os.environ['BUCKET_INGESTAO'], json_file_name).put(Body=(bytes(json.dumps(json_props).encode('UTF-8'))))
     
     except Exception as e:
         print(e.__class__)

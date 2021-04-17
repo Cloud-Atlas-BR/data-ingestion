@@ -21,7 +21,7 @@ Resources:
         S3Bucket: !Ref LambdaBucket
         S3Key: function.zip
       Runtime: python3.7
-      Timeout: 180
+      Timeout: 900
       Environment:
         Variables:
           DATA_INICIO: !Ref DATAINICIO
