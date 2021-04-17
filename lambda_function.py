@@ -60,5 +60,5 @@ def GenerateJsonFile(date, first_page,last_page,json_boject,json_props):
         print(e)
 
 def lambda_handler(event, context):
-    date = (datetime.today() + timedelta(days=-1)).strftime("%Y-%m-%d")
+    date = (datetime.today() + timedelta(days=-1) + timedelta(hours=-3)).strftime("%Y-%m-%d")
     GetPages(date)
